@@ -54,3 +54,11 @@ export async function discoverMovies(
   );
   return mapPaginatedMovies(response);
 }
+
+export async function getSimilarMovies(id: number): Promise<PaginatedMovies> {
+  const response = await tmdbFetch<TMDBPaginatedResponse<TMDBMovie>>(
+    endpoints.similar(id),
+    { revalidate: 86400 }
+  );
+  return mapPaginatedMovies(response);
+}

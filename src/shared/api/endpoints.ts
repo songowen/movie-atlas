@@ -9,6 +9,8 @@ export const endpoints = {
 
   movie: (id: number) => `/movie/${id}`,
 
+  similar: (id: number) => `/movie/${id}/similar`,
+
   search: (query: string, page: number = 1) =>
     `/search/movie?query=${encodeURIComponent(query)}&page=${page}`,
 

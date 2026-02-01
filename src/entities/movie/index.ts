@@ -4,6 +4,7 @@ export {
   getMovie,
   searchMovies,
   discoverMovies,
+  getSimilarMovies,
 } from "./api/movie-api";
 
 // Domain types

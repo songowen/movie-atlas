@@ -13,6 +13,7 @@ export interface Movie {
   releaseYear: number | null;
   rating: number;
   voteCount: number;
+  genreIds: number[];
 }
 
 export interface MovieDetail extends Movie {

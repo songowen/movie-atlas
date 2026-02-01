@@ -1,9 +1,12 @@
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getMovie } from "@/src/entities/movie";
 import { MovieDetail } from "@/src/entities/movie/ui/MovieDetail";
 import { TMDBError } from "@/src/shared/api";
 import { generateMovieSchema, JsonLd } from "@/src/shared/lib/structured-data";
+import { SimilarMovies } from "@/src/widgets/SimilarMovies";
+import { MovieGridSkeleton } from "@/src/shared/ui";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -77,6 +80,11 @@ export default async function MoviePage({ params }: PageProps) {
       <>
         <JsonLd data={jsonLd} />
         <MovieDetail movie={movie} />
+        <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+          <Suspense fallback={<SimilarMoviesSkeleton />}>
+            <SimilarMovies movieId={movieId} />
+          </Suspense>
+        </div>
       </>
     );
   } catch (error) {
@@ -85,4 +93,16 @@ export default async function MoviePage({ params }: PageProps) {
     }
     throw error;
   }
+}
+
+function SimilarMoviesSkeleton() {
+  return (
+    <section className="mt-16">
+      <div className="h-8 w-48 animate-pulse rounded bg-zinc-200 dark:bg-zinc-800" />
+      <div className="mt-1 h-5 w-64 animate-pulse rounded bg-zinc-200 dark:bg-zinc-800" />
+      <div className="mt-6">
+        <MovieGridSkeleton count={5} />
+      </div>
+    </section>
+  );
 }

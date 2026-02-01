@@ -37,6 +37,7 @@ export function mapMovie(tmdb: TMDBMovie): Movie {
     releaseYear: parseYear(tmdb.release_date),
     rating: Math.round(tmdb.vote_average * 10) / 10,
     voteCount: tmdb.vote_count,
+    genreIds: tmdb.genre_ids,
   };
 }
 
@@ -51,6 +52,7 @@ export function mapMovieDetail(tmdb: TMDBMovieDetail): MovieDetail {
     releaseYear: parseYear(tmdb.release_date),
     rating: Math.round(tmdb.vote_average * 10) / 10,
     voteCount: tmdb.vote_count,
+    genreIds: tmdb.genres.map((g) => g.id),
     tagline: tmdb.tagline,
     runtime: tmdb.runtime,
     genres: tmdb.genres.map((g) => ({ id: g.id, name: g.name })),
